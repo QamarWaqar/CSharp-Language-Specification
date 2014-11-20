@@ -1,0 +1,282 @@
+Facebook
+
+    C#
+    Home
+    Notifications
+    Messages
+    Notifications
+    Account Settings
+
+Edit
+Class1.cs
+20 December 2010 at 21:42
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace ConsoleApplication0
+
+{
+
+    class Class1
+
+    {
+
+        public int a=1;
+
+        static Class1()
+
+        { Console.WriteLine("Static ctr Called"); }
+
+        public Class1()
+
+        { Console.WriteLine("No Ag Ctr Called"); }
+
+        public Class1(int a)
+
+            : this()
+
+        { Console.WriteLine("One Arg Ctr Called"); }
+
+ 
+
+ 
+
+        // CLASS TEST //
+
+ 
+
+ 
+
+        internal class test: inter
+
+        {
+
+            public int a = 0;
+
+            public static int b = 0;
+
+            public const int c = 0;
+
+            // PROPERTY TEST //
+
+            public virtual int[] prop
+
+            {
+
+                get
+
+                {
+
+                    Console.WriteLine("GET USED TEST");
+
+                    int[] arr = new int[] { 0, 1, 2, 3 };
+
+                    return arr;
+
+                }
+
+                set
+
+                {
+
+                    b=value[03];
+
+                }
+
+            }
+
+            // INDEXER TEST //
+
+            public int this[int i1,int i2,int i3]
+
+            {
+
+                get
+
+                {
+
+                    Console.WriteLine("GET USET");
+
+                    return i1+i2+i3;
+
+                }
+
+                set
+
+                {
+
+                    Console.WriteLine("SET USET");
+
+                    i1 = value;
+
+                    i2 = value + value;
+
+                    i3 = value + value + value;
+
+                }
+
+            }
+
+            public test ()
+
+            { a = prop[2]; }
+
+            // INTERFACE TEST //
+
+            public int intro()    // virtual and static is not allowed // it must be public at any cost to be get implemented //
+
+            {
+
+                Console.WriteLine("TEST USED");
+
+                return 911;
+
+            }
+
+            public virtual void display()
+
+            { Console.WriteLine("{0}and{1}and{2}",a,b,c); }
+
+        }
+
+ 
+
+ 
+
+        // CLASS TESTOO //
+
+ 
+
+ 
+
+        public class testoo : test
+
+        {
+
+            public new int a = 8;
+
+            public new int[] prop // new==donot use this in case //
+
+            {
+
+                get
+
+                {
+
+                    Console.WriteLine("GET USED TESTOO");
+
+                    int[] ar = new int[] { 9, 8, 7, 6 };
+
+                    return ar;
+
+                }
+
+                set
+
+                {
+
+                    a = value[0];
+
+                }
+
+            }
+
+            public testoo()
+
+            { a=8; Console.WriteLine("testoo used"); }
+
+            public override void display()
+
+            { Console.WriteLine(this.a); }
+
+        }
+
+ 
+
+ 
+
+        // CLASS TESTEE //
+
+ 
+
+ 
+
+        public class testee: inter // THE class must implement every funtion in the interface //
+
+        {
+
+            int inter.intro()   // now this method is not a part of this class //
+
+            {                   // but to use it must be explicitly converted to interface type and then used through //
+
+                Console.WriteLine("TESTEE USED");         // that interface variable //
+
+                return 1122;
+
+            }
+
+            public static void hot()
+
+            { Console.WriteLine("OK"); }
+
+        }
+
+ 
+
+ 
+
+        // INTERFACE //
+
+ 
+
+ 
+
+        public interface inter    // using public,private,protected has no effect //
+
+        {
+
+            int intro();
+
+        }
+
+        /*static void funtest( out int a1,params int[] arr )
+
+        { a1=4;Console.WriteLine("{0}and{1}and{2}",arr[0],arr[1],arr[2]); }*/
+
+        /*public delegate int delfun(int x);    // static - virtual const not allowed // public - private - protected allowed //
+
+        internal class del
+
+        {
+
+            public int add(int a)
+
+            { return a; }
+
+            public double multiply(int a, delfun f)
+
+            { return a * f(a); }
+
+        }
+
+        public class del2
+
+        {
+
+            public int add2(int a)
+
+            { return a; }
+
+        }*/
+
+    }
+
+}

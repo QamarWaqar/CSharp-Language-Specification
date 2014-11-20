@@ -1,0 +1,276 @@
+CLass5.cs
+20 December 2010 at 21:45
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace ConsoleApplication3
+
+{
+
+    public delegate int del1(int a);
+
+    public delegate void del2();
+
+    public delegate int del3();
+
+    // EVENTS STARTS //
+
+    public class events
+
+    {
+
+        public event del1 event1;
+
+        // automatically implemented event //
+
+        // all share the same storage location //
+
+        public event del1 event2
+
+        // it can only be used in += or -= context
+
+        // you cant use "event2.Invoke()" inside or outside the class //
+
+        // event1 has the default value null // so it is a reference type //
+
+        // event2 is not allowed to have a default value //
+
+        // every one is a seperate storage location //
+
+        {
+
+            add { Console.WriteLine("EVENT 2 ADDED"); value.Invoke(23); /*event2 += value;*/ }
+
+            remove { Console.WriteLine("EVENT 2 REMOVED"); value.Invoke(23); /*event2 -= value;*/ }
+
+        }
+
+        public event del1 event3
+
+        {
+
+            add { eventadder(value, 23); }
+
+            remove { eventremover(value, 23); }
+
+        }
+
+        public int delta(int a)
+
+        { Console.WriteLine("EVENT FIRED FROM EVENTS CLASS"); return a; }
+
+        public void efire1(int a)
+
+        { if (event1 != null) { event1.Invoke(a); } }
+
+ 
+
+        public void eventadder(del1 d, int a)
+
+        { d.Invoke(a); }
+
+        public void eventremover(del1 d, int a)
+
+        { d.Invoke(a); }
+
+ 
+
+        public void display(object obj)
+
+        { Console.WriteLine(((test)obj).a); }
+
+    }
+
+    // EVENTS ENDS //
+
+ 
+
+ 
+
+    // INDEXERS STARTS //
+
+    public partial interface inter
+
+    {
+
+        int this[int a] // automatically implemented indexxers // They are not allowed to be declares private public protected static ... //
+
+        { get; set; }
+
+    }
+
+    partial interface inter
+
+    { }
+
+    public class test : inter
+
+    {
+
+        static test()
+
+        { Console.WriteLine("STATIC CTR CALLED"); }
+
+ 
+
+        public static int x = default(int);
+
+ 
+
+        public int a = 0;
+
+ 
+
+        int inter.this[int a] // explicit interface implementation // it inherits access modifiers from the interface //
+
+        // accessors have the same access modifiers as that of the enclosing member i.e. public //
+
+        { get { Console.WriteLine("INTER USED"); return this.a; } set { Console.WriteLine("INTER USED"); this.a = value; } }
+
+ 
+
+        public virtual int this[int a]
+
+        { get { return this.a; } set { this.a = value; } }
+
+ 
+
+        public char this[params int[] arr]
+
+        { get { return '0'; } set { } }
+
+ 
+
+        // OPERATORS STARTS //
+
+        public static int operator
+
+        { return (a.a
+
+ 
+
+        public static test operator ++(test a)
+
+        {
+
+            Console.WriteLine("++ op used");
+
+            test temp = new test();
+
+            temp.a = a.a + 1;
+
+            return temp;
+
+        }
+
+ 
+
+        public static implicit operator int(test a)
+
+        { Console.WriteLine("int conv used"); a.a = 911; return a.a; }
+
+ 
+
+        public static implicit operator char(test a)
+
+        { Console.WriteLine("char conv used"); a.a = 1122; return 'Q'; }
+
+ 
+
+        public static implicit operator test(int a)
+
+        { Console.WriteLine("test conv used"); test t = new test(); t.a = a; return t; }
+
+        // OPERATORS ENDSD //
+
+ 
+
+        ~test()
+
+        { Console.WriteLine("DESTRUCT CALLED TEST {0}", x); x += 1; }
+
+    }
+
+    public class testoo : test, IDisposable
+
+    {
+
+        public override int this[int a]
+
+        { get { return a; } set { } }
+
+        void IDisposable.Dispose()
+
+        { Console.WriteLine("DISPOSED Explicit interface member implementation"); }
+
+        public void Dispose()
+
+        { Console.WriteLine("DISPOSED Implementing the definition"); }
+
+    }
+
+    // INDEXERS ENDS //
+
+    class Class5
+
+    {
+
+        // THIS IS THE MAIN() BODY TO USE THE UPPER THINGS //
+
+        /*test t1 = new test() { a = 0 };
+
+            test t2 = new test();
+
+            t2 = ++t1;
+
+            Console.WriteLine(t2.a); Console.WriteLine(t1.a);
+
+            t2 = t1++;
+
+            Console.WriteLine(t2.a); Console.WriteLine(t1.a);
+
+ 
+
+            Console.WriteLine(t1);
+
+ 
+
+            testoo tt1 = new testoo();
+
+            Console.WriteLine((int)tt1);
+
+            inter inte1 = tt1;
+
+            Console.WriteLine(inte1[23]);
+
+ 
+
+            Console.WriteLine("--- int to test ---");
+
+            Console.WriteLine((int)(test)23);
+
+ 
+
+            var v = t1;
+
+            object obj = v;
+
+            Console.WriteLine(((test)obj).a);
+
+ 
+
+            using (testoo t = new testoo())
+
+            { }*/
+
+    }
+
+}

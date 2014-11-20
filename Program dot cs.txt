@@ -1,0 +1,789 @@
+Program.cs
+
+#define DEBUG  // For Conditinal Methods // FOr Conditional Attribute Class //
+
+#define GUBED
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text; // using namespace directive //
+
+using ConsoleApplication0; // It only Imports the Class1(not the types within) to be used without qalifying namespaace //
+
+using ConsoleApplication00;
+
+using N; // CodeFile1.cs //
+
+ 
+
+namespace ConsoleApplication1
+
+{
+
+    using QamarCodeFile = N;
+
+    public delegate void dell();
+
+    public delegate void lled(object a);
+
+    public delegate int deed(out int a);
+
+    /// <summary>
+
+    /// This is <c>alpha</c> class
+
+    /// <example>For Example:
+
+    /// This is its coded example
+
+    /// </example>
+
+    /// </summary>
+
+    /// <remarks>ALPHA CLASS</remarks>
+
+    internal class alpha
+
+    {
+
+        public static int x;
+
+        public static implicit operator alpha(int a)
+
+        { return new alpha(); }
+
+        public static implicit operator int(alpha a)
+
+        { return new int(); }
+
+        public static implicit operator int[](alpha a)
+
+        { return new int[] { 0, 1 }; }
+
+ 
+
+        // POINTER CONVERSIONS // Userdefined conversion must convert to or from the enclosing type //
+
+        unsafe public static implicit operator int*(alpha a)
+
+        { fixed (int* i = &x) { return i; } }
+
+        unsafe public static implicit operator alpha(int* a)
+
+        { return new alpha(); }
+
+        // POINTER CONVERSIONS //
+
+ 
+
+        /// <summary>
+
+        /// <exception cref="NO EXCEPTION THOROWN">NET</exception>
+
+        /// </summary>
+
+        public static void SM1()
+
+        { Console.WriteLine("SM1"); }
+
+        public static void SM2()
+
+        { Console.WriteLine("SM2"); }
+
+        public void MM1()
+
+        { Console.WriteLine("MM1"); }
+
+        public void MM2()
+
+        { Console.WriteLine("MM2"); }
+
+ 
+
+        /// <summary>
+
+        /// I AM OVERLOADED FOR (<paramref name="a as int or object"/>).
+
+        /// </summary>
+
+        /// <param name="a"> a is its parameter </param>
+
+        /// <returns> an integer </returns>
+
+        public int MM3(out int a)
+
+        { a = x; x += 1; return a; }
+
+ 
+
+        /// <summary>
+
+        /// it is no use to write here <summary>bla bla bla</summary> part will be picked up from above
+
+        /// </summary>
+
+        /// <param name="a">This text will be displayed when you try to call the method</param>
+
+        public void MM3(object a)
+
+        { Console.WriteLine("MM3{0}", eve); }
+
+ 
+
+        [event: beta()]
+
+        [field: beta()]
+
+        [method: beta()]
+
+        public event dell eve; // event: field: (associated fields) method: (associated add and remove methods) //
+
+ 
+
+        [event: beta()]
+
+        public event dell eva // only event: //
+
+        {
+
+            [method: beta()]
+
+            [param: beta()]   // method: param: return: (to add and remove methods) //
+
+            [return: beta()]
+
+            add { value.Invoke(); return; }
+
+            remove { }
+
+        }
+
+    }
+
+ 
+
+    /// <summary>
+
+    /// <list type="table">
+
+    /// <listheader>
+
+    /// <description>TABLE</description>
+
+    /// <term>SHABBLE</term>
+
+    /// </listheader>
+
+    /// </list>
+
+    ///
+
+    /// <list type="bullet">
+
+    /// <listheader>
+
+    /// <term>BULLET</term>
+
+    /// </listheader>
+
+    /// <item><description>ONE</description></item> <item><description>TWO</description></item>
+
+    /// </list>
+
+    /// </summary>
+
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
+
+    class betaAttribute : System.Attribute
+
+    {
+
+        public int a = default(int);
+
+        public int b
+
+        { get { return a; } set { a = value; } }
+
+        public static int c = new int();
+
+        public betaAttribute() // for each constructor I provide //
+
+        // for each positional parameter I provide //
+
+        // I get a free named parameter constructor(only useable in attribute specification) //
+
+        { }
+
+        public betaAttribute(int a)
+
+        { }
+
+        static betaAttribute()
+
+        { }
+
+    }
+
+ 
+
+    [System.Diagnostics.Conditional("DEBUG")] // If one or more of them (conditional compilation symbols) is defined then
+
+                                              // This class will be included in attribute specification
+
+                                              // otherwise ommited from attribute specisication
+
+    [System.Diagnostics.Conditional("GUBED")]
+
+    class cetaAttribute : System.Attribute // This conditional attribute class
+
+                                           //is associated with two conditional compilation
+
+                                           // symbols "DEBUG" and "GUBED" //
+
+    { }
+
+ 
+
+    [type: beta(), beta(23), beta(24), beta(a = 0, b = 1), beta(23, a = 1, b = 2)]
+
+    [type: beta(a = 23), beta(b = 23)]
+
+    [type: beta, ceta]
+
+    [Obsolete("Ok Lets Go!!!",false)]
+
+    class gamma : betaAttribute
+
+    {
+
+        [System.Runtime.CompilerServices.IndexerName("Item")]
+
+        public int this[int a]
+
+        { get { return 0; } set { } }
+
+    }
+
+ 
+
+    /** <summary>
+
+    * This is <c>struct</c>s Programe
+
+     * <example>For Example:
+
+     * This is a coded example
+
+     * </example>
+
+    * </summary>
+
+    * */
+
+    partial struct Program : System.IDisposable, System.Collections.IEnumerable
+
+    {
+
+        public  const alpha all = null;
+
+        public const string str = "QAMAR";
+
+        // a const field of a reference type other than string can only be initialized with null //
+
+        public readonly int integer; // use the constructor to initialize it //
+
+        // inside a method you can only declare const field, but not static and readonly //
+
+        public static readonly int integral=0; // you can never take the address of static readonly field //
+
+        public static int integra=0;
+
+ 
+
+        unsafe public int* pi;
+
+        public static Program pk = new Program();
+
+        unsafe public Program(int* a)
+
+            : this()
+
+        { fixed (int* ok = &integer) { } fixed (int* ko = &integra) { } }
+
+        unsafe static Program() // static constructor cannothave an explicit 'this' or 'base' constructor call //
+
+        { integral = 23; }
+
+ 
+
+        static partial void Main(string[] args); // defining the declaration //
+
+ 
+
+        [System.Diagnostics.Conditional("DEBUG")]
+
+        public void method(alpha al)
+
+        { Console.WriteLine("Program Conditional Method"); }
+
+ 
+
+        unsafe public fixed char name[32], place[default(char)+1], area[sizeof(char)]; // FIXED SIZE BUFFER FIELD // remember it cannot be refixed //
+
+        // It doesnot implement System.Collections.Ienumerable // soo cannot be used in foreach loop //
+
+        // its considered fixed only inside this struct body //
+
+        // b/c Main() is part of this struct so it is considered fixed // refixing is an error //
+
+        // its actually like declaring a pointer field //
+
+        // all the pointer operatios it supports //
+
+        // fixed size buffer must be of one of the followeing types //
+
+        // bool, byte, short, int, long, char, sbyte, ushort, uint, ulong, float, double //
+
+        // FIXED SIZE BUFFER field can only be present in a structs //
+
+        // FIXED SIZE BUFFER field cannot be static //
+
+        // cannnot declare FIXED SIZE BUFFER field in catch and finally blocks //
+
+        // b/c they are automatically destroyed when returning from a function //
+
+ 
+
+        void System.IDisposable.Dispose() // The modifier public is not valid for this item //
+
+                                          // explicit interface member implementation //
+
+        { Console.WriteLine("DISPOSED"); }
+
+ 
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+
+        { yield return 2; yield return 3; }
+
+        public System.Collections.IEnumerator GetEnumerator()
+
+        // To Implement GetEnumerator() you must implement both
+
+        // explicit interface member implementation
+
+        // and Implicit member Implementing the definition //
+
+        { yield return 0; yield return 1; }
+
+ 
+
+        public static alpha operator +(Program p1,alpha a1) // one of the formal parameter type must be the containing type //
+
+        { return new alpha(); }                             // both cannot be pointer types also //
+
+        public static alpha operator +(alpha a1, Program p1)
+
+        { return new alpha(); }
+
+ 
+
+        unsafe public static Program operator -(Program p1, Program* pp2)
+
+        { return new Program(); }
+
+ 
+
+        /// <summary>
+
+        /// <exception cref="net">no ex th</exception>
+
+        /// </summary>
+
+        /// <param name="p"></param>
+
+        /// <param name="count"></param>
+
+        /// <param name="value"></param>
+
+        unsafe static void fill(int* p, int count, int value)
+
+        {
+
+            for (; count != 0; --count)
+
+            { *p++ = value; }
+
+        }
+
+ 
+
+        [System.Runtime.InteropServices.DllImport("kernel32")]
+
+        public static extern int GetProcessHeap();
+
+        [System.Runtime.InteropServices.DllImport("kernel32")]
+
+        public static extern int GetProcAddress();
+
+    }
+
+    partial struct Program
+
+    {
+
+        static partial void Main(string[] args)  // implementing the declaration //
+
+        {
+
+            betaAttribute bA = new betaAttribute();
+
+            gamma gam = new gamma();
+
+            Console.WriteLine(gam);
+
+            Console.WriteLine(bA);
+
+ 
+
+            Program p = new Program();
+
+            //p.method();
+
+ 
+
+            QamarCodeFile.CN.CNM();
+
+            unsafe
+
+            {
+
+                Program* ptrp = &p;
+
+                (*ptrp).method(new alpha());
+
+                char ch = 'Q';
+
+                char* ptrch = &ch;
+
+                Console.WriteLine(ptrch[0]); // Q //
+
+                Console.WriteLine(ptrch[1]); // null //
+
+                Console.WriteLine(*ptrch);   // Q //
+
+                Console.WriteLine((int)&ptrch);
+
+ 
+
+                Console.WriteLine("---stackallock---");
+
+                // pointer arithmetic ++ and -- operators //
+
+                char* ptrch2 = stackalloc char[2];
+
+                *ptrch2++ = 'Q';
+
+                //*ptrch2 = 'S';
+
+                //*(ptrch2++) = 'R';
+
+                // stackalloc returns pointer to the amount allocated by you in square brakets //
+
+                Console.WriteLine(*ptrch2); // Q //
+
+                Console.WriteLine(ptrch2[0]);
+
+                Console.WriteLine(ptrch2[1]);
+
+                Console.WriteLine(ptrch2[-1]);
+
+                // pointer arithmetic ++ and -- operators //
+
+                Console.WriteLine("---stackallock---");
+
+ 
+
+                void* ptrv = ptrch;
+
+                ptrch = (char*)ptrv;
+
+ 
+
+                int* ptrint = (int*)2;
+
+                int test = (int)ptrint;
+
+                Console.WriteLine(test);
+
+ 
+
+                // pointer arithmetic + and - binary operators //
+
+                int* testint = ptrint + 2;
+
+                testint = 2 + ptrint;
+
+                testint = ptrint - 2;
+
+                long li = testint - ptrint;
+
+                // pointer arithmetic + and - binary operators //
+
+ 
+
+                int X1 = (int)ptrch;
+
+                char* ptrch1 = ptrch;
+
+                *ptrch1 = 'S';
+
+                Console.WriteLine(*ptrch);
+
+                Console.WriteLine("{0:c}", 23);
+
+ 
+
+                fixed (int* phatoo = &alpha.x, tatoo = &alpha.x) { *phatoo = 0; }
+
+ 
+
+                // you cannot [*phatoo++] pass it as ref or out //
+
+                fixed (char* phatoo = "QAMAR")
+
+                {
+
+                    phatoo[0] = 'S'; *phatoo = 'S';
+
+                    Console.WriteLine(*phatoo);
+
+                    char* local = phatoo;
+
+                    for (; *local != '\0'; local++) { Console.Write(*local); }
+
+                    Console.WriteLine();
+
+                    for (int i = 0; *(phatoo + i) != '\0'; i++) { Console.Write(*(phatoo + i)); }
+
+                    Console.WriteLine();
+
+                    string s = "QAMAR";
+
+                    Console.WriteLine(s[0]);
+
+                }
+
+                // remember you cannot declare pointer to string (string*) //
+
+                // b/c string is a managed type, a reference type //
+
+                // you can apply foreach to string but not to char* //
+
+                // you cannot display char* like just give the starting name as in C++ we do //
+
+                // you can treat string as array but not as a pointer //
+
+ 
+
+                Program pu = new Program();
+
+                using (pu) { Console.WriteLine("USING PU {0}",pu); }
+
+                using (pu) { Console.WriteLine("USING PU {0}",pu); }
+
+                // remember pu and phatoo is not accessible outside but still you cannot declare pu and phatoo outside //
+
+                // pu and phatoo are in the child scope //
+
+ 
+
+                // similarly the variable declared in the forloop is not accessible outside the loop //
+
+                // and you still cannnot declare the variable with the same name in as in the forloop //
+
+ 
+
+                int* pa1 = (int*)0; int* pa2 = (int*)1; int* pa3 = (int*)2;
+
+                int*[] pa = { pa1, pa2, pa3 };
+
+                foreach (var v in pa)
+
+                { Console.WriteLine("foreach {0}", (int)v); }
+
+ 
+
+                Console.WriteLine("alpha to int[] conversion operator");
+
+                int[] arr = { 0, 1 };
+
+                alpha al = new alpha();
+
+                arr = al; // alpha to int[] conversion operator //
+
+ 
+
+                Console.WriteLine(" START OF TESTING FILL STATIC VOID METHOD ");
+
+                fixed (int* parr = arr) { fill(parr, 2, -1); }
+
+                fixed (int* parr = &arr[0]) { }
+
+                foreach (var v in arr) { Console.Write(v+" "); }
+
+                Console.WriteLine(" END OF TESTING FILL STATIC VOID METHOD ");
+
+ 
+
+                Console.WriteLine("USING FIXED SIZE BUFFER FIELD");
+
+                char* par = p.name; // p.name is a fixed variable and you cannot ++ or -- it or pass it as a ref or out //
+
+                par[0] = 'Q'; *++par = 'A';
+
+                p.name[0] = (char)1; p.name[1] = (char)2;
+
+                Console.WriteLine(p.name[0]); Console.WriteLine(p.name[1]);
+
+                Console.WriteLine(*p.name); Console.WriteLine(*(p.name+1));
+
+                Console.WriteLine("USING FIXED SIZE BIUFFER FIELD");
+
+ 
+
+                Console.WriteLine("alpha to int* conversion operator");
+
+                ptrint = al;
+
+ 
+
+                p.pi = (int*)2;
+
+                Console.WriteLine((int)p.pi); // do not use *p.pi //
+
+                                              // b/c in this way you are dereferencing the content of p.pi i.e integer 2 //
+
+ 
+
+                // rememeber array is a reference type you cannot take its address //
+
+                Console.WriteLine("OK LET");
+
+                int* sa = stackalloc int[2];
+
+                int* piss = &sa[0];
+
+                piss[0] = 1; piss[1] = 2;
+
+                Console.WriteLine(piss[0]);
+
+                Console.WriteLine(piss[1]);
+
+                Console.WriteLine(*piss);
+
+            }
+
+            Console.WriteLine("----------------------------");
+
+            foreach (var v in p)
+
+            { Console.Write("{0} ", v); } // 0 1 //
+
+            Console.WriteLine();
+
+ 
+
+            System.Collections.IEnumerator pie = p.GetEnumerator();
+
+            Console.WriteLine(pie.Current); // null //
+
+            pie.MoveNext();
+
+            Console.WriteLine(pie.Current); // 0 //\
+
+            pie.MoveNext();
+
+            Console.WriteLine(pie.Current); // 1 //
+
+            // subsequent movenexts will give 1 only //
+
+            Console.WriteLine("---");
+
+ 
+
+            pie = p.GetEnumerator();
+
+            while (pie.MoveNext())
+
+            { Console.WriteLine(pie.Current); } // 0 1 //
+
+            Console.WriteLine("---");
+
+ 
+
+            System.Collections.IEnumerable pie1 = p;
+
+            foreach (var v in pie1)
+
+            { Console.WriteLine(v); } // 2 3 //
+
+            pie = pie1.GetEnumerator();
+
+            while (pie.MoveNext())
+
+            { Console.WriteLine(pie.Current); } // 2 3 //
+
+            Console.WriteLine("----------------------------");
+
+            System.StackOverflowException ssofe = new StackOverflowException("HELLO");
+
+            ssofe.Source = "HELLO n YELLOW";
+
+            Console.WriteLine(ssofe.Source);
+
+            Console.WriteLine(ssofe.Message);
+
+            try
+
+            {
+
+                throw (ssofe);
+
+            }
+
+            catch (StackOverflowException sofe)
+
+            { System.Collections.IDictionary scid = sofe.Data; Console.WriteLine(scid.Count); }
+
+            finally
+
+            { Console.WriteLine("FINALLY SOME ACTION"); }
+
+            Console.WriteLine(Program.GetProcessHeap());
+
+            Console.WriteLine(Program.GetProcAddress());
+
+ 
+
+            dynamic dobj = new alpha();
+
+ 
+
+            dell dd1 = delegate { Console.WriteLine("OK"); };
+
+            dd1 += delegate { Console.WriteLine("DOOKAY"); };
+
+            dd1.Invoke();
+
+        }
+
+    }
+
+}?

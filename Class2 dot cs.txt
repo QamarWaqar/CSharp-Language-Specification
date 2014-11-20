@@ -1,0 +1,298 @@
+Class2.cs
+20 December 2010 at 21:42
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+using ConsoleApplication0;
+
+ 
+
+// typedef starts // using alias directives //
+
+using QamarSpace = global::ConsoleApplication0; // using QamarSpace = ConsoleApplication0; // namespace alias qualifier "::" //
+
+using QamarClass1 = ConsoleApplication0.Class1;
+
+using QamarClassTest = ConsoleApplication0.Class1.test;
+
+using QamarClassTestee = ConsoleApplication0.Class1.testee;
+
+using QamarClassTestoo = ConsoleApplication0.Class1.testoo;
+
+using QamarInterface = ConsoleApplication0.Class1.inter;
+
+// typedef ends // using alias directives //
+
+ 
+
+// self typedef starts // using alias directives // because They are a part of a global namespace so they are easiy accessible //
+
+using QamarAliasToSelfClass = ConsoleApplication00.Class2.intro;
+
+using QamarAliasToSelfNamespace = ConsoleApplication1;
+
+// self typedef ends // using alias directives //
+
+ 
+
+namespace ConsoleApplication0
+
+{ }
+
+ 
+
+namespace ConsoleApplication00
+
+{
+
+    // typedef starts // using alias directives //
+
+    using WaqarSpace = ConsoleApplication0;
+
+    using QamarClass1 = ConsoleApplication0.Class1;
+
+    using QamarClassTest = ConsoleApplication0.Class1.test;
+
+    using QamarClassTestee = ConsoleApplication0.Class1.testee;
+
+    using QamarClassTestoo = ConsoleApplication0.Class1.testoo;
+
+    using QSpaceW = QamarSpace;
+
+    // typedef ends // using alias directives //
+
+ 
+
+    // self typedef starts // using alias directives // This Internal one will take precedence over the external one //
+
+    using QamarAliasToSelfClass = ConsoleApplication00.Class2.intro;
+
+    using QamarAliasToSelfNamespace = ConsoleApplication00;
+
+    // self typedef ends // using alias directives //
+
+ 
+
+    class Class2
+
+    {
+
+        // you can only declare here: class, delegate, enum, interface, struct // nothing else //
+
+        public struct str
+
+        { }
+
+ 
+
+        public enum enu
+
+        { }
+
+ 
+
+        public delegate int delta(int x);
+
+        public delegate Class2.str stu();
+
+        // GENERIC DELEGATE TYPE Func<A,R> //
+
+        public delegate R Func<A, R>(A arg);
+
+ 
+
+        interface inter
+
+        { int chu(); }
+
+        struct point
+
+        {
+
+            public int x, y;
+
+            public point(int x, int y, params int[] arr)
+
+            {
+
+                this.x = x; this.y = y;
+
+            }
+
+        }
+
+ 
+
+        public class intro
+
+        {
+
+            public int a = 1;
+
+            static intro()
+
+            { Console.WriteLine("Static constructor called"); }
+
+ 
+
+            public intro()
+
+            { Console.WriteLine("NO arg ctr called"); }
+
+            public intro(int a)
+
+                : this()
+
+            { Console.WriteLine("1 arg ctr called"); }
+
+ 
+
+            public static intro operator ++(intro intee1)
+
+            { intee1.a += intee1.a; return intee1; }
+
+            public static bool operator ==(intro intee1, intro intee2)
+
+            {
+
+                int a = (int)intee1; int b = (int)intee2;
+
+                if (a == b) { return true; } else { return false; }
+
+            }
+
+            public static bool operator !=(intro intee1, intro intee2)
+
+            {
+
+                int a = (int)intee1; int b = (int)intee2;
+
+                if (a != b) { return true; } else { return false; }
+
+            }
+
+            public static explicit operator int(intro intee)
+
+            { return intee.a; }
+
+ 
+
+            // Boolean Logical AND and Logical OR //
+
+            public static bool operator true(intro inte1)
+
+            {
+
+                if (inte1.a == 0) { Console.WriteLine("true used 0"); return false; }
+
+                else { Console.WriteLine("true used 1"); return true; }
+
+            }
+
+            public static bool operator false(intro inte2)
+
+            {
+
+                if (inte2.a == 0) { Console.WriteLine("false used 0"); return true; }
+
+                else { Console.WriteLine("false used 1"); return false; }
+
+            }
+
+ 
+
+            public static intro operator &(intro inte1, intro inte2)
+
+            {
+
+                if (inte1.a == inte2.a) { Console.WriteLine("& used if"); return inte1; }
+
+                else { Console.WriteLine("& used else"); return inte1; }
+
+            }
+
+            public static intro operator |(intro inte1, intro inte2)
+
+            {
+
+                if (inte1.a == inte2.a) { Console.WriteLine("| used"); return inte1; }
+
+                else { Console.WriteLine("| used"); return inte1; }
+
+            }
+
+            public override bool Equals(object obj)
+
+            { return base.Equals(obj); }
+
+            public override int GetHashCode()
+
+            { return base.GetHashCode(); }
+
+            // End of Boolean Logical AND and Logical OR //
+
+ 
+
+            public IEnumerator<int> display(int a)
+
+            {
+
+                Console.WriteLine("BEFORE THE YIELD RETURN");
+
+                yield return a++;
+
+                Console.WriteLine("AFTER THE YIELD RETURN");
+
+                yield return a++;
+
+            }
+
+            public IEnumerable<int> playdis(int a)
+
+            {
+
+                Console.WriteLine("BEFORE THE YIELD RETURN");
+
+                a += 1; a += 1;
+
+                yield return a++;
+
+                Console.WriteLine("AFTER THE YIELD RETURN");
+
+                yield return a++;
+
+            }
+
+ 
+
+            public t gm<t>(t a) { return a; }
+
+ 
+
+            ~intro()
+
+            { Console.WriteLine("I am destroyed {0}",this.a); }
+
+        }
+
+ 
+
+        public delegate int del(int x);
+
+        static int testfundel(int x, Func<int, int, int> f) // The generic delegate "Func<> identifier" //
+
+        { return x + (f(2, 3)); }
+
+        static int testdelfun(int x, del f)
+
+        { return x + (f(x)); }
+
+    }
+
+}

@@ -1,0 +1,498 @@
+Class4.cs
+20 December 2010 at 21:44
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace ConsoleApplication2
+
+{
+
+    class Class4
+
+    {
+
+        // EXTENSION METHOD STARTS //
+
+        public void extmet(testoo a)
+
+        { Console.WriteLine("INSIDE PROGRAM CLASS"); }
+
+        // EXTENSION METHOD ENDS //
+
+ 
+
+        public abstract class test
+
+        // you can also use the keword new in place of abstract //
+
+        // which means that do not use this in case and i am hiding mmbers of base class //
+
+        {
+
+            public int a;
+
+            public test()
+
+            { a = 0; }
+
+            public abstract int this[int a]
+
+            {
+
+                get;
+
+                set;
+
+            }
+
+            public abstract void display(); // cannot declace body //
+
+            // There can be abstract, virtual methods and properties and indexers not fields //
+
+        }
+
+        public class testoo : test
+
+        {
+
+            public new int a; // using new means do not use this in case // and the default is new //
+
+            public testoo()
+
+                : base()
+
+            { a = 1; }
+
+            public override int this[int a]
+
+            {
+
+                get { return a; }
+
+                set { a = value; }
+
+            }
+
+            public override void display()
+
+            { Console.WriteLine(a); }
+
+        }
+
+ 
+
+        // STATIC CLASS // PARTIAL CLASSES //
+
+        public static partial class sc
+
+        {
+
+            static int a = 0;
+
+            const int b = 0;
+
+            static sc() // static constructors are always private // no modifiers allowed //
+
+            { a = 1; }
+
+            public static void display()
+
+            { Console.WriteLine("{0} {1} {2}", a, b, c); }
+
+            // A class directly depends on its direct base class and the immediately containing type //
+
+            public class sattaymattay
+
+            {
+
+                public void playdis()
+
+                {
+
+                    display(); Console.WriteLine(a);
+
+                }
+
+            }
+
+            // PARTIAL METHODS //
+
+            // There can be partial classes, structs, interfaces, methods //
+
+            static partial void testpar();  // defining partial method declaration //
+
+ 
+
+            // USES OF THIS CLASS IN MAIN //
+
+            /*
+
+             * sc.display(); // 1 0 2 //
+
+             * sc.sattaymattay s=new sc.sattaymattay();
+
+            */
+
+        }
+
+ 
+
+        // PARTIAL CLASS //
+
+        partial class sc
+
+        {
+
+            static int c = 2;
+
+            // PARTIAL METHODS // Methods declared as PARTIAL, ABSTRACT, EXTERN are allowed to not to have bodies //
+
+            static partial void testpar()  // Implementing partial method declaration //
+
+            { Console.WriteLine("Partial Method"); }
+
+        }
+
+        // Generic classes // base class (opt) // type parameter constraint clause (opt) //
+
+        private class gc0<A, B, C>
+
+            where A : class, new() // reference type constraint // constructor constraint only new() allowed //
+
+            where B : testee
+
+            where C : struct      // a value type constraint cannont have constructor constraint //
+
+        // where C : gc0<testoo,testee,int> is also allowed //
+
+        // if we had D type parameter the it is allowed to use //
+
+ 
+
+                                  // where D : A // but make sure there are no cyclic depedency errors //
+
+        // and it will be possible for D to be a value type and A to be a reference type//
+
+        // boxing happens implicitly //
+
+        // then this will be allowd in the Main() //
+
+        // gc0<object, testee, int, int> g = new gc0<object, testee, int, int>(); //
+
+ 
+
+                                  // where D : testoo,A // where D : new() //
+
+        // where D : new() // which means it can take any type constraint //
+
+        {
+
+            A a = default(A);
+
+            B b = (B)new testee(2, 3);
+
+            public gc0()
+
+            { Console.WriteLine("No Arg Ctr Called gc0"); }
+
+            public virtual void display()
+
+            { Console.WriteLine(a); Console.WriteLine(b.a); }
+
+            // Generic Method //
+
+            public void gm<D, E, F>()
+
+                where D : gc1<testoo, testee>
+
+                where E : struct
+
+                where F : gc0<testoo, testee, int>
+
+            {
+
+                D d = (D)new gc1<testoo, testee>();
+
+                E e = default(E);
+
+                F f = (F)new gc0<testoo, testee, int>();
+
+                Console.WriteLine("{0} {1} {2}", d.a, e, f.a);
+
+            }
+
+        }
+
+        private class gc1<A, B> : gc0<testoo, B, char> where B : testee, new()
+
+        // pointer types are not allowed to be either value type or reference type constraints //
+
+        {
+
+            A a = default(A);
+
+            static A aa = default(A);
+
+            public gc1()
+
+                : base()
+
+            { Console.WriteLine("No Arg Ctr Called gc1"); }
+
+            public override void display()
+
+            { Console.WriteLine(a); Console.WriteLine(gc1<testoo, testee>.aa); base.display(); }
+
+        }
+
+        // virtual/override not allowed for classes //
+
+        // partial allowed for classes //
+
+ 
+
+        // CLASS TESTEE //
+
+        public class testee
+
+        {
+
+            public readonly int a = new int(); // public int a = default(int); // publiv int[] a = {0,1}; // public int[] a = new int[] {0,1}; //
+
+            public static int x = 2;
+
+            public int y = x; // 1 //
+
+            public int z = ret();
+
+            static testee()
+
+            { x = 1; }
+
+            public testee()
+
+            { Console.WriteLine("No Arg Ctr Called testee"); }
+
+            public testee(int a, int b)
+
+            { Console.WriteLine("Two Arg Ctr Called testee"); }
+
+            public testee(int a, params int[] arr)
+
+            { this.a = a; }
+
+            public static int ret()
+
+            { return 0; }
+
+            public virtual void test()
+
+            { Console.WriteLine("TESTEE"); }
+
+            public virtual T tt<T>() where T : class
+
+            { return default(T); }
+
+            // EXTENSION METHOD STARTS //
+
+            public void extmet()
+
+            { Console.WriteLine("Inside TESTEE"); }
+
+            public void exttest()
+
+            {
+
+                Class4 p = new Class4();
+
+                Console.WriteLine("---Program---");
+
+                p.extmet(23); p.extmet(new testoo());// present in class //
+
+                p.extmet(); // the method inside the Program class has benn prioritized //
+
+                p.extmet<Class4>();
+
+                extclass.extmet<Class4>(p); // You should pass the Program Type Object //
+
+                Console.WriteLine("---TESTEE---");
+
+                testee t = new testee();
+
+                t.extmet<testee>(); extclass.extmet<testis>(new testis()); // // GENERIC METHOD // //
+
+                extclass.extmet<testee>(new testee()); // // GENERIC METHOD // //
+
+                t.extmet(); // the method inside the testee has benn prioritized //
+
+                extclass.extmet(t);
+
+                t.extmet(23, "qamar");
+
+                Console.WriteLine("---int---");
+
+                int a = 23;
+
+                a.extmet<int>(); a.extmet(); // GENERIC METHODS USED //
+
+                a.extmet(2, 3); // EXT METHOD USED //
+
+                a.extmet(23, "Qamar");
+
+                Console.WriteLine("---st---");
+
+                st s = new st();
+
+                s.extmet<st>(); // GENERIC EXTENSION METHOD //
+
+                s.extmet(); // The inside method has been prioritized //
+
+                // If this method was not present then the generic one must have beeen used //
+
+            }
+
+            // EXTENSION METHOD ENDS //
+
+        }
+
+        // CLASS TESTIS //
+
+        public class testis : testee
+
+        {
+
+            public new static int a = 0;
+
+            public A methos<A, B>(A a) where A : new()
+
+            { Console.WriteLine("A USED"); return default(A); }
+
+            public B methos<A, B>(B a) where B : new()
+
+            { Console.WriteLine("B USED"); return default(B); }
+
+            public void display(int a, params int[] arr)
+
+            { a = 1; arr[0] = 1; }
+
+            public void display(out char b, params char[] arr)
+
+            { a = 10; b = '0'; Console.WriteLine(arr[0]); }
+
+            public override void test()
+
+            { base.test(); }
+
+            /*new public virtual void test()
+
+            { Console.WriteLine("TESTIS"); }*/
+
+            public sealed override A tt<A>()
+
+            { return default(A); }
+
+            new protected int y = 0;
+
+        }
+
+ 
+
+        public interface inface // interface members are by default public //
+
+        {
+
+            int prop
+
+            { get; set; }
+
+        }
+
+        public class inclass : inface
+
+        {
+
+            /*int inface.prop
+
+            { get { return 0; } set { } }*/
+
+            public int prop
+
+            { get { return 0; } set { } }
+
+            public IEnumerable<int> IEprop
+
+            {
+
+                get
+
+                { Console.WriteLine("Q"); yield return 0; Console.WriteLine("A"); yield return 1; Console.WriteLine("M"); }
+
+                set
+
+                { }
+
+            }
+
+ 
+
+            // automatically implemented properties STARTS //
+
+            public int X
+
+            { get; set; }
+
+            public static int Y // only can be setted inside the class body //
+
+            { get; private set; }
+
+            public void rettes()
+
+            { inclass.Y = 2; }
+
+            // automatically implemented properties ENDS //
+
+        }
+
+ 
+
+        // sutomatically implemented properties in structs STARTS //
+
+        public struct auto
+
+        {
+
+            public auto(int a)
+
+                : this()
+
+            { }
+
+            public int X
+
+            { get; set; }
+
+        }
+
+        // automatically implemented peroperties in structs ENDS //
+
+ 
+
+        internal void extmet(int p)
+
+        {
+
+            throw new NotImplementedException();
+
+        }
+
+    }
+
+} 

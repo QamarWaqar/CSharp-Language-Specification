@@ -1,0 +1,76 @@
+1. automatic implemented properties can now skip setter and can be getter only, 
+   and can be assigned a value  with for example. public int x { get; } = 10;
+2. You can use Static classes in using clause.
+3. // 
+string interpolation
+int x = 0; int y =1;
+String.format("({0},{1})", x, y); //
+"(\{x},\{y})" // interpolated string
+4. Lambda expressions. Basically you can now use Lambda Expressions to define Functions and Properties.
+   And remember Lambda Expressions can now also have body with curly braces, if it is more than one line.
+   () => { return "(\{x}, \{y})"; }
+   () => "(\{x}, \{y})"
+   > you can now implement a method with just a Lambda Expression
+   public override string ToString() => "(\{x},\{y})";
+5. public double Dist // computed properties //
+   {
+     get { return Sqrt(x*x+y*y); };
+   }
+   public double Dist => Sqrt(x*x+y*y);
+---------------------------------------
+6. // INDEX INITIALIZERS //
+// here is a code that turns point into Json Object //
+public class Point
+{
+ public int x {get;}
+ public int y {get;}
+ ...
+ public JObject ToJson()
+ {
+  var result = new JObject();
+  result["x"] = x;
+  result["y"] = y;
+  // var result  = new JObject() { ["x"]=x, ["y"]=y }; // you can assign indexers in "Side Object Initializes" //
+  // return new JObject() { ["x"]=x, ["y"]=y }; //
+  return result;
+ }
+ /*
+ public JObject ToJson() => new JObject() { ["x"]=x, ["y"]=y };
+ */
+}
+----------------------------------------
+7. // Null- Conditional Operators // and the new ?. operator // #Elvis Operator. two eyes and a hair //
+   Point p = new Point();
+   if(p?.x==1){...} // so basically what you are doing here is checking if p is null 
+   // if p is null the whole statement is null // and statement doesnt goes on to checking after that //
+   // if(p.x?.ToString=="int"){ ... } // means if p.x is not equal to null and .ToString equals "int" //
+   // if(p?.x?.ToString=="int"){ ... } // means check if p is null, if not then its x member, if not then its
+                                       // ToString() method will be processed //
+   // if(p?){ ... } // if body will only be executed if p is not null // otherwise the if statement is null //
+   // you can also do this null-conditional operator on delegates too //
+
+   // last but not the least you can also use p's indexers in this // try to do this //
+-----------------------------------------
+8. The nameof operator
+   // it just outputs any types names in string //
+   // if you change any refactoring to it, the nameof changes too //
+   // for example //
+   public Point Add(Point point)
+   {
+     if(point == null) //
+     {
+       throw new ArgumentNullException("point"); // ...(nameof(point)); // if u change the name of the point
+                                                                        // in it, the point changes all over
+                                                                        // inside the fucntion too
+     }
+   }
+--------------------------------------------
+9. // Exception Filters //
+   // Now in C# you can filter the exceptions in the catch block too // previously in VB and F# //
+   // For Example //
+   try {...} catch(Exception e) {...} finally {...}
+   // now you can do this //
+   try {...}
+   catch (Exception e) if(e.Message == "Hello World!") {...}
+   finally {...}
+   // Also now you have await in catch and finally blocks // yay!

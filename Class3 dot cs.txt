@@ -1,0 +1,134 @@
+Class3.cs
+20 December 2010 at 21:43
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+using ConsoleApplication1;
+
+using ConsoleApplication2;
+
+ 
+
+namespace ConsoleApplication2
+
+{
+
+    struct st
+
+    {
+
+        public void extmet()
+
+        { Console.WriteLine("INSIDE STRUCT"); }
+
+    }
+
+}
+
+ 
+
+// EXTESION MKETHODS //
+
+static class extclass    // IT IS NON GENERIC AND NONNESTED STATIC CLASS //
+
+{
+
+    // EXTENSION METHODS START // must be defined in a top level static class, not in nested class //
+
+    // they are allowed to be used in <non-generic> and <non-nested static> classes //
+
+    public static void extmet<T>(this T a)
+
+    // available in every class's instance both VALUE TYPE and REFERENCE TYPES //
+
+    // It supports both no arg and arguments for VALUE TYPES AND REFERNCE TYPES //
+
+    { Console.WriteLine("EXTMET FOR GENERIC METHOD {0}", a); }
+
+    public static void extmet(this object a, int x, string c)
+
+    // This means to say that you can use this method for any object type with int and string type arguments //
+
+    // but you cannot take it as a no arg method //
+
+    // remember inside methods will be prioritized //
+
+    { Console.WriteLine("EXTMET FOR OBJECT METHOD {0}", a); }
+
+    public static void extmet(this object a)
+
+    { Console.WriteLine("EXTMET FOR OBJECT METHOD {0}", a); }
+
+    public static void extmet(this Program a, int b)  // available only in case Program //
+
+    // and the case is //
+
+    // 1 // when Program object is called with an int argument //
+
+    // 2 // the functions inside the Program class will be given priority if we had a signature clash //
+
+    { Console.WriteLine("EXTMET FOR PEOGRAM {0}", b); }
+
+    public static void extmet(this Program a)
+
+    // now this is a no argumet method for Program object //
+
+    // remember the methods inside the Program class will be given priority //
+
+    { Console.WriteLine("EXTMET FOR PROGRAM"); }
+
+    public static void extmet(this ConsoleApplication2.Class4.testee a) // available only in case Program.testee //
+
+    // and the case is when Program.testee is called without any arguments //
+
+    // remember the methods inside the clas will be prioritized //
+
+    { Console.WriteLine("EXTMET FOR Program.testee"); }
+
+    public static void extmet(this int a, int b, int c)
+
+    // now for value types it is a different game //
+
+    // this method means that // is can be explicitly called for for a value type "int" with two "int" type arguments //
+
+    // this doent means that it can be called with no arguments for "int" type object //
+
+    // unlike reference objects //
+
+    { Console.WriteLine("EXTMET USED FOR int {0} ", a); }
+
+    public static void extmet(this st a)
+
+    // now for value types it is a different game //
+
+    // this method means that // it can be explicitly called fot a value type "st" //
+
+    // this doesnt means that it can be called with no arguments for "st" type objects //
+
+    { Console.WriteLine("EXTMET FOR st {0}", a); }
+
+    // END RESULT IS //
+
+    // FOR REFERENCE TYPE OBJECTS //
+
+    // This function will be automatically availble for "this" type of object in two forms, no arg and with args //
+
+    // FOR VALUE TYPE OBJECTS //
+
+    // This function is automatically available for "this" type of object only explicitly //
+
+    // and in case you had given the arguments after the first arguments //
+
+    // it will be available for that arguments automatically implicitly for that value type object //
+
+    // AND FOR BOTH //
+
+    // The method will same signature in the VALUE TYPE or REFERNCE TYPE will be given preference //
+
+} 

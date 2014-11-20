@@ -1,0 +1,4 @@
+You can pass reference types by reference to methods by using out/ref key word, and the difference s that:
+When you use ref/out you can change its reference in memory.
+In other case you cant.
+In both cases you can change the reference object contents.
