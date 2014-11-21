@@ -1,3 +1,7 @@
+0. // Before we Begin //
+   A thing from past that I might have missed. // Null coalescing operator // ?? operator //
+   int? y = x ?? -1; // if x is null then y is null, otherwise y is -1 // and int? means null able int type
+--------------------------------------
 1. automatic implemented properties can now skip setter and can be getter only, 
    and can be assigned a value  with for example. public int x { get; } = 10;
 2. You can use Static classes in using clause.
